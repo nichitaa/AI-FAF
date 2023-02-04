@@ -1,6 +1,6 @@
 from production import IF, AND, THEN, OR, forward_chain
 
-RULES = (
+TOURIST_RULES = (
     IF(OR('(?x) prefers expensive restaurants',
           '(?x) rents a car'),
        THEN('(?x) has big budget')),
@@ -44,13 +44,13 @@ RULES = (
        THEN('(?x) is an Loonie')),
 )
 
-DATA = (
+TOURIST_DATA = (
     'marta is interested in extreme sports',
     'marta has an athletic build',
     'marta rents cycling equipment',
-    'marta loves local cuisine',
-    'marta prefers public transport',
-    'marta knows city\'s history and culture'
+    # 'marta loves local cuisine',
+    # 'marta prefers public transport',
+    # 'marta knows city\'s history and culture'
 )
 
-print(forward_chain(RULES, DATA, verbose=True))
+# print(forward_chain(TOURIST_RULES, TOURIST_DATA, verbose=True))

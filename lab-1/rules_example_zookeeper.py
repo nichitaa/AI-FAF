@@ -85,4 +85,4 @@ ZOO_DATA = (
     # 'mark has black and white color',
 )
 
-print(forward_chain(ZOOKEEPER_RULES, ZOO_DATA, verbose=True))
+# print(forward_chain(ZOOKEEPER_RULES, ZOO_DATA, verbose=True))
