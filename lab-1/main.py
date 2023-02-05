@@ -1,33 +1,34 @@
-from production import IF, THEN, AND, OR, backward_chain
+# Pasecinic Nichita FAF 192
 
-# r = (
-#     IF(OR('(?x) has x', '(?x) has y'),
-#        THEN('(?x) has x or y')),
-#
-#     IF(AND('(?x) has x or y',
-#            '(?x) has z'),
-#        THEN('(?x) has x or y and z'))
-# )
-#
-# res = backward_chain(r, 'bob has x or y and z')
-# print('result: ', res)
+import random
 
-#
-# if __name__=='__main__':
-#
-#     #TODO: implement your code here!
-#
-#     # example how to print output:
-#     print("Welcome to Expert System! TODO: implement")
-#
-#     # an example how to read input:
-#     input_name = input("please write your name:\n")
-#
-#     print("Hello, ", input_name, "!")
-#
-#     # example how to read a numeric input:
-#     input_age = int(input("what is your age?\n"))
-#     print("Your age is", input_age)
-#
-#     print("Great! Now please implement the code for the lab :) ")
-#
+from expert_system import get_statements, generate_questions
+from production import forward_chain
+from tourist_rules import TOURIST_RULES
+
+if __name__ == '__main__':
+    verbose = True
+    data_set = ()
+    found = False
+    name = input('Enter person name that system will inspect: ')
+    questions = generate_questions(name, TOURIST_RULES)
+
+    while not found:
+        if len(questions) <= 0:
+            print('No more questions, extend the rules that defines a tourist type')
+            found = True
+        else:
+            question = random.choice(questions)
+            questions.remove(question)
+            statements = get_statements(question)
+            if statements is not None:
+                data_set += statements
+            forward_chain_result = forward_chain(TOURIST_RULES, data_set)
+
+            if verbose:
+                print('statements to append: ', statements)
+                print('new data set: ', data_set)
+            for statement in forward_chain_result:
+                if '[answer]' in statement:
+                    print(statement.replace('[answer]', ''))
+                    found = True
