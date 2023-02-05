@@ -54,14 +54,32 @@ def forward_chain(rules, data, apply_only_one=False, verbose=False):
     return data
 
 
-def backward_chain(rules, hypothesis, verbose=False):
-    """
-    Outputs the goal tree from having rules and hyphothesis, works like an "encyclopedia"
-    """
+def get_and_or_rule(statements, rule): return AND(statements) if isinstance(rule, AND) else OR(statements)
 
-    # TODO: you should implement backward_chain algorithm here
 
-    return "TODO: implement backward_chain"  # change return
+def backward_chain(rules, desired_goal):
+    results = [desired_goal]
+    for rule in rules:
+        # assuming that a consequent can have a single outcome (for this fw chaining implementation)
+        consequent_template = rule.consequent()[0]  # THEN('(?x) has xy') -> '(?x) has xy'
+        bindings = match(consequent_template, desired_goal)
+
+        if bindings is not None:
+            # found a match
+            antecedent = rule.antecedent()  # IF(AND(rule), THEN(outcome)) -> AND(rule)
+            if isinstance(antecedent, str):
+                # traverse for the next desired goal (antecedent is not necessary a node)
+                next_desired_goal = populate(antecedent, bindings)
+                results.append(backward_chain(rules, next_desired_goal))
+                results.append(next_desired_goal)
+            else:
+                # is AND/OR
+                next_desired_goal_list = [populate(template, bindings) for template in antecedent]
+                next_rules = [backward_chain(rules, goal) for goal in next_desired_goal_list]
+                results.append(get_and_or_rule(next_rules, antecedent))
+
+    # OR('bob has x or y', OR(OR('bob has x'), OR('bob has y')) -> OR('bob has x or y', 'bob has x', 'bob has y')
+    return simplify(OR(results))
 
 
 def instantiate(template, values_dict):
