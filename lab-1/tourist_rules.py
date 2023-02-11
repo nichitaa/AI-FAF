@@ -48,9 +48,9 @@ TOURIST_DATA = (
     'marta is interested in extreme sports',
     'marta has an athletic build',
     'marta rents cycling equipment',
-    # 'marta loves local cuisine',
-    # 'marta prefers public transport',
-    # 'marta knows city\'s history and culture'
+    # 'bob loves local cuisine',
+    # 'bob prefers public transport',
+    # 'bob knows city\'s history and culture'
 )
 
-# print(forward_chain(TOURIST_RULES, TOURIST_DATA, verbose=True))
+# print(forward_chain(TOURIST_RULES, TOURIST_DATA, apply_only_one=True, verbose=True))

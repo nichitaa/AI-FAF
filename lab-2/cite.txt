@@ -1,0 +1,4 @@
+The provided test images are a part of the dataset "Labeled Faces in the Wild: A Database for Studying Face Recognition in Unconstrained Environments.".
+by Gary B. Huang, Manu Ramesh, Tamara Berg, and Erik Learned-Miller. University of Massachusetts, Amherst, Technical Report 07-49, October, 2007.
+
+Link: http://vis-www.cs.umass.edu/lfw/
