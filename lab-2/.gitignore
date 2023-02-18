@@ -1,2 +1,4 @@
 .idea
 env
+game.py
+.ipynb_checkpoints
