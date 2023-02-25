@@ -43,6 +43,9 @@ rd_pred = get_prediction(rd_model, x_test, y_test, 'Ridge')
 
 # Plot
 figure, axis = plt.subplots(2, 2)
+figure.set_figwidth(15)
+figure.set_figheight(7)
+
 lims = [0, 500000]
 
 axis[0, 0].scatter(y_test, lr_pred, s=1)
